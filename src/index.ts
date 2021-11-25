@@ -10,13 +10,16 @@ const run = () => {
 
     const over140: string[] = [];
 
-    const files = glob.sync('src/**/*.{ts,tsx,js,jsx}', {nodir: true});
+    const isMonorepo = fs.existsSync('packages');
+    const files = isMonorepo
+        ? glob.sync('packages/**/*.{ts,tsx,js,jsx}', {nodir: true})
+        : glob.sync('src/**/*.{ts,tsx,js,jsx}', {nodir: true});
 
     files.forEach(file => {
         const content = fs.readFileSync(file, 'utf-8');
 
         if (content.split('\n').length > 140) {
-            const fileName = file.slice(file.indexOf('src/'));
+            const fileName = file.slice(file.indexOf(isMonorepo ? 'packages/': 'src/'));
             over140.push(fileName);
         }
     });
