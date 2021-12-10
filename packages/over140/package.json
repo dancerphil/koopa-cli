@@ -17,7 +17,7 @@
         "build": "tsc",
         "prepublishOnly": "yarn build"
     },
-    "repository": "https://github.com/dancerphil/shot.git",
+    "repository": "https://github.com/dancerphil/koopa-cli.git",
     "author": "Cong Zhang <dancerphil1994@gmail.com>",
     "license": "MIT",
     "dependencies": {
