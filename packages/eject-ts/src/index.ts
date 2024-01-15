@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import glob from 'glob';
+import {globSync} from 'glob';
 import fs from 'fs';
 import child_process from 'child_process';
 
 const run = () => {
-    const files = glob.sync('src/**/*.{js,jsx}', {nodir: true});
+    const files = globSync('src/**/*.{js,jsx}', {nodir: true});
 
     files.forEach(file => {
         const content = fs.readFileSync(file, 'utf-8');

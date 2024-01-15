@@ -19,3 +19,9 @@ npx @koopa-cli/glob less
 ```
 
 See [@koopa-cli/glob](./packages/glob/README.md) for more.
+
+## @koopa-cli/cohesion
+
+```shell
+npx @koopa-cli/cohesion
+```

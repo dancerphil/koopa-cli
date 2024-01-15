@@ -5,7 +5,7 @@ import fs from 'fs';
 import chalk from 'chalk';
 
 const run = () => {
-    const snapshotFileName = 'scripts/over140.snapshot';
+    const snapshotFileName = 'scripts/cohesion.snapshot';
     const snapshot = fs.existsSync(snapshotFileName) ? fs.readFileSync(snapshotFileName, 'utf-8') : '';
 
     const outputList: string[] = [];
@@ -17,9 +17,11 @@ const run = () => {
 
     files.forEach(file => {
         const content = fs.readFileSync(file, 'utf-8');
+        const fileName = file.slice(file.indexOf(isMonorepo ? 'packages/': 'src/'));
+        const segments = fileName.split('/');
+        const moduleAndDir = `${segments[1]}/${segments[2]}`;
 
-        if (content.split('\n').length > 140) {
-            const fileName = file.slice(file.indexOf(isMonorepo ? 'packages/': 'src/'));
+        if (content.includes(`'@/${moduleAndDir}`)) {
             outputList.push(fileName);
         }
     });
@@ -30,7 +32,7 @@ const run = () => {
 
     if (snapshot !== output) {
         console.log();
-        console.log(chalk.yellow(' ✨ 140 行检查：文件快照发生变更，请重新 commit 后提交'));
+        console.log(chalk.yellow(' ✨ 模块内聚检查：文件快照发生变更，请重新 commit 后提交'));
         if (!fs.existsSync('scripts')) {
             fs.mkdirSync('scripts');
         }

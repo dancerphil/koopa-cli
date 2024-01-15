@@ -34,11 +34,13 @@ const run = () => {
         ? globSync(`packages/**/${pattern}`, {nodir: true})
         : globSync(`src/**/${pattern}`, {nodir: true});
 
+    files.sort();
+
     const output = files.join('\n');
 
     if (snapshot !== output) {
         console.log();
-        console.log(chalk.yellow(` ✨ 匹配${name}的文件快照发生变更，请重新 commit 后提交`));
+        console.log(chalk.yellow(` ✨ 后缀匹配检查 ${name}：文件快照发生变更，请重新 commit 后提交`));
         if (!fs.existsSync('scripts')) {
             fs.mkdirSync('scripts');
         }
