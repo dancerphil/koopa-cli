@@ -28,6 +28,13 @@ const run = () => {
 
     outputList.sort();
 
+    if (outputList.length > 0) {
+        outputList.forEach(fileName => {
+            console.log();
+            console.log(`  ${chalk.underline(fileName)}`);
+        })
+    }
+
     const output = outputList.join('\n');
 
     if (snapshot !== output) {
